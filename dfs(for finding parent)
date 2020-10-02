@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+void dfs(int s,vector<vector<int>>&v,vector<int> &b,vector<int>&p){
+    
+    b[s] = 1;
+    for(auto x: v[s]){
+        if(!b[x]){
+            p[x] = s;
+            dfs(x,v,b,p);
+        }
+    }
+}
+
+int main(){
+    int n,m;
+    cin>>n>>m;
+    vector<vector<int>>v(n);
+    int a,b;
+    vector<int>bol(n);
+    vector<int>p(n);
+    for(int i=0;i<m;i++){
+        cin>>a>>b;
+        v[a].push_back(b);
+        v[b].push_back(a);
+    }
+    dfs(1,v,bol,p);
+    for(int i=0;i<n;i++){
+        cout<<p[i]<<" ";
+    }
+    cout<<endl;
+    
+}
