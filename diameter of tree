@@ -1,0 +1,62 @@
+void bfs(int s,vector<vector<int>>&v,vector<int>&vis,vector<int>&lev){
+    vis[s] = 1;
+    queue<int>q;
+    q.push(s);
+    int c = 0;
+    int f = 0;
+    while(!q.empty()){
+        int a = q.front();
+        q.pop();
+        for(auto x : v[a]){
+            
+            if(!vis[x]){
+                lev[x] = lev[a] + 1;
+                vis[x] = 1;
+                q.push(x);
+                f = 1;
+            }
+        }
+        f = 0;
+        
+    }
+    return ;
+    
+}
+int Solution::solve(vector<int> &A) {
+    int n = A.size();
+    int r;
+    if(n==1){
+        return 0;
+    }
+    vector<vector<int>>v(n);
+    for(int i=0;i<n;i++){
+        if(A[i]!= -1){
+            v[i].push_back(A[i]);
+            v[A[i]].push_back(i);
+        }
+        else{
+            r = i;
+        }
+    }
+    vector<int>vis(n);
+    vector<int>lev(n);
+    
+    bfs(r,v,vis,lev);
+    int m = lev[0],x = 0;
+    for(int i=1;i<n;i++){
+        if(lev[i]>m){
+            x = i;
+            m = lev[i];
+        }
+    }
+    vector<int>le(n);
+    vector<int>vi(n);
+    bfs(x,v,vi,le);
+    int ma = le[0];
+    for(int i=1;i<n;i++){
+        ma = max(ma,le[i]);
+    }
+    return ma;
+    
+}
+//interviewbit problem
