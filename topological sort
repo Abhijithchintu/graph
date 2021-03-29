@@ -1,0 +1,25 @@
+//using stack we push the elements and we take from top.dfs will not work
+void to(int x,int V,vector<int> adj[],vector<bool>&b,vector<int>&an){
+	    b[x] =1;
+	    for(auto y:adj[x]){
+	        if(!b[y]){
+	            to(y,V,adj,b,an);
+	        }
+	    }
+	    an.push_back(x);
+	}
+	vector<int> topoSort(int V,vector<int> adj[]) {
+	    // code here
+	    vector<bool>b(V);
+	    for(int i=0;i<V;i++){
+	        b[i] = false;
+	    }
+	    vector<int>an;
+	    for(int i=0;i<V;i++){
+	        if(!b[i]){
+	            to(i,V,adj,b,an);
+	        }
+	    }
+	    reverse(an.begin(),an.end());
+	    return an;
+	}
